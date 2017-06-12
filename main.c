@@ -25,7 +25,6 @@ int ReadInt() {
 struct GameState {
     int turn;
     int active;
-    int winner;
     int board[ROWS][COLS];
 };
 
@@ -40,11 +39,11 @@ int ClearBoard(struct GameState state) {
 
 int DrawBoard(struct GameState state) {
     printf("\n\n=====================\n\n");
-    for (size_t i = 0; i < ROWS; i++) {
-        for (size_t k = 0; k < COLS; k++) {
+    for (int i = 0; i < ROWS; i++) {
+        for (int k = 0; k < COLS; k++) {
             char v[16];
             if (state.board[i][k] == 0) {
-                sprintf(v, "(%lu,%lu)", i, k);
+                sprintf(v, "(%i,%i)", i, k);
             } else if (state.board[i][k] == 1) {
                 sprintf(v, " [X] ");
             } else if (state.board[i][k] == 2) {
@@ -72,22 +71,18 @@ int checkWin(struct GameState state) {
             if (p != 0) {
                 if (k == 1 && state.board[i][k-1] == p && state.board[i][k+1] == p) { // Left & Right
                     state.active = 0;
-                    state.winner = p;
                     //printf("X: %i, Y: %i, M: LR", i, k);
                     return 1;
                 } else if (i == 1 && state.board[i-1][k] == p && state.board[i+1][k] == p) { // Top & Bottom
                     state.active = 0;
-                    state.winner = p;
                     //printf("X: %i, Y: %i, M: TB", i, k);
                     return 1;
                 } else if (i == 1 && k == 1 && state.board[i-1][k-1] == p && state.board[i+1][k+1] == p) { // Top Left & Bottom Right
                     state.active = 0;
-                    state.winner = p;
                     //printf("X: %i, Y: %i, M: TLBR", i, k);
                     return 1;
                 } else if (i == 1 && k == 1 && state.board[i-1][k+1] == p && state.board[i+1][k-1] == p) { // Top Right & Bottom Left
                     state.active = 0;
-                    state.winner = p;
                     //printf("X: %i, Y: %i, M: TRBL", i, k);
                     return 1;
                 }
@@ -117,9 +112,9 @@ int main(int argc, char const *argv[]) {
 
     srand(time(NULL));
 
-    ClearBoard(state);
     state.active = 1;
     state.turn = 1;
+    ClearBoard(state);
 
     while (state.active == 1) {
         DrawBoard(state);
