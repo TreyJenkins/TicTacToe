@@ -80,12 +80,12 @@ int checkWin(struct GameState state) {
                     state.winner = p;
                     //printf("X: %i, Y: %i, M: TB", i, k);
                     return 1;
-                } else if (i == 1 && k == 1 & state.board[i-1][k-1] == p && state.board[i+1][k+1] == p) { // Top Left & Bottom Right
+                } else if (i == 1 && k == 1 && state.board[i-1][k-1] == p && state.board[i+1][k+1] == p) { // Top Left & Bottom Right
                     state.active = 0;
                     state.winner = p;
                     //printf("X: %i, Y: %i, M: TLBR", i, k);
                     return 1;
-                } else if (i == 1 && k == 1 & state.board[i-1][k+1] == p && state.board[i+1][k-1] == p) { // Top Right & Bottom Left
+                } else if (i == 1 && k == 1 && state.board[i-1][k+1] == p && state.board[i+1][k-1] == p) { // Top Right & Bottom Left
                     state.active = 0;
                     state.winner = p;
                     //printf("X: %i, Y: %i, M: TRBL", i, k);
